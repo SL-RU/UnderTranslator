@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="UnderTranslator.UTextViewer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:s="clr-namespace:UnderTranslator"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="615">
+    <Grid Background="#FF171717">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="89*"/>
+        </Grid.RowDefinitions>
+        <CheckBox x:Name="faceMode" Content="With face" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="18" Checked="faceMode_Checked" Unchecked="faceMode_Unchecked"/>
+        <RadioButton x:Name="pap" Content="Papyrus" Margin="0,0,71,0" GroupName="UShowTextType" FontSize="16" HorizontalAlignment="Right" Height="40" Checked="pap_Checked"/>
+        <RadioButton x:Name="stndrt" Content="Standard" Margin="0,0,156,0" GroupName="UShowTextType" FontSize="16" HorizontalAlignment="Right" Checked="stndrt_Checked"/>
+        <RadioButton x:Name="sans" Content="Sans" Margin="0,0,10,0" GroupName="UShowTextType" FontSize="16" HorizontalAlignment="Right" Checked="sans_Checked"/>
+        <RadioButton x:Name="plainmode" Content="Plain" Margin="0,0,249,0" GroupName="UShowTextType" FontSize="16" HorizontalAlignment="Right" Checked="plainmode_Checked"/>
+        <Canvas x:Name="withoutFaceNorm" Margin="0" Grid.Row="1" Background="Black">
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="150" Stroke="White" VerticalAlignment="Top" Width="577" StrokeThickness="6" Canvas.Left="10" Canvas.Top="10"/>
+            <s:GMXFontViewr x:Name="wfnorm1" Height="36" Canvas.Top="30" Width="541" Canvas.Left="37"/>
+            <s:GMXFontViewr x:Name="wfnorm2" Height="36" Canvas.Top="71" Width="541" Canvas.Left="37"/>
+            <s:GMXFontViewr x:Name="wfnorm3" Height="36" Canvas.Top="112" Width="541" Canvas.Left="37"/>
+        </Canvas>
+        <Canvas x:Name="FaceNorm" Margin="0" Grid.Row="1" Background="Black" d:IsHidden="True">
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="150" Stroke="White" VerticalAlignment="Top" Width="577" StrokeThickness="6" Canvas.Left="10" Canvas.Top="10"/>
+            <s:GMXFontViewr x:Name="fnorm1" Height="36" Canvas.Top="30" Width="425" Canvas.Left="153"/>
+            <s:GMXFontViewr x:Name="fnorm2" Height="36" Canvas.Top="71" Width="425" Canvas.Left="153"/>
+            <s:GMXFontViewr x:Name="fnorm3" Height="36" Canvas.Top="112" Width="425" Canvas.Left="153"/>
+            <Image Height="100" Width="100" Source="ybf.png" Canvas.Left="26" Canvas.Top="37"/>
+        </Canvas>
+        <Canvas x:Name="PlaintText" Margin="0" Grid.Row="1" Background="Black" d:IsHidden="True">
+            <Rectangle Fill="White" HorizontalAlignment="Left" Height="100" Stroke="White" VerticalAlignment="Top" Width="210" StrokeThickness="6" Canvas.Left="10" Canvas.Top="10" RadiusY="21.667" RadiusX="21.667"/>
+            <s:GMXFontViewr x:Name="fplain1" Height="16" Canvas.Top="22" Width="183" Canvas.Left="26"/>
+            <s:GMXFontViewr x:Name="fplain2" Height="16" Canvas.Top="43" Width="183" Canvas.Left="26"/>
+            <s:GMXFontViewr x:Name="fplain3" Height="16" Canvas.Top="64" Width="183" Canvas.Left="26"/>
+            <s:GMXFontViewr x:Name="fplain4" Height="16" Canvas.Top="85" Width="183" Canvas.Left="26"/>
+        </Canvas>
+    </Grid>
+</UserControl>

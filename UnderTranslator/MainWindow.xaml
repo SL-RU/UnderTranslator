@@ -1,0 +1,61 @@
+﻿<Controls:MetroWindow x:Class="UnderTranslator.MainWindow"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:s="clr-namespace:UnderTranslator"
+        Title="Undertranslator by SL_RU" Height="493" Width="695" PreviewMouseDown="MetroWindow_PreviewMouseDown" PreviewMouseUp="MetroWindow_PreviewMouseUp">
+    <Grid>
+        <Menu Height="30" VerticalAlignment="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="Open" ></MenuItem>
+                <MenuItem Header="Save" ></MenuItem>
+                <Separator />
+                <MenuItem Header="Exit" ></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Edit" ></MenuItem>
+            <MenuItem Header="Tools" >
+                <MenuItem Header="Pack"></MenuItem>
+                <MenuItem Header="Extract"></MenuItem>
+            </MenuItem>
+            <MenuItem x:Name="menu_about" Header="About" Click="menu_about_Click" ></MenuItem>
+        </Menu>
+        <Grid Margin="0,30,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="210"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <TextBox x:Name="search" Margin="0,0,105,0" TextWrapping="Wrap" FontSize="20" VerticalContentAlignment="Center" ToolTip="Search"/>
+                <Button Content="X" HorizontalAlignment="Right" Margin="0,0,78,0" VerticalAlignment="Top" Width="27" Height="40" FontSize="20"/>
+                <CheckBox x:Name="enterAfterPaste" Content="" HorizontalAlignment="Right" Margin="0" ToolTip="Enter after paste" IsChecked="True"/>
+            </Grid>
+
+            <Grid Margin="0" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="655*"/>
+                    <ColumnDefinition Width="17"/>
+                </Grid.ColumnDefinitions>
+                <DataGrid SelectionMode="Single" x:Name="datagrid" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserSortColumns="False" HorizontalScrollBarVisibility="Disabled" SizeChanged="datagrid_SizeChanged" ColumnHeaderHeight="27" RowHeight="25" MinRowHeight="24" ScrollViewer.CanContentScroll="False" VerticalScrollBarVisibility="Disabled" PreviewMouseWheel="datagrid_PreviewMouseWheel" PreviewKeyUp="datagrid_PreviewKeyUp" PreviewKeyDown="datagrid_PreviewKeyDown" SelectionChanged="datagrid_SelectionChanged" HeadersVisibility="None">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding ID}" MinWidth="30" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Orig" Binding="{Binding Orig}" Width="*" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Translation" Binding="{Binding Trans}" Width="*" IsReadOnly="True"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <ScrollBar x:Name="scr" HorizontalAlignment="Right" Margin="0" Grid.Column="1" Width="17" SmallChange="1" Maximum="20000" ValueChanged="ScrollBar_ValueChanged" LargeChange="10" ScrollViewer.CanContentScroll="True" PreviewMouseWheel="datagrid_PreviewMouseWheel"/>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Label Content="ID:" HorizontalAlignment="Left" Margin="0" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="editField" Margin="133,0,0,0" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" PreviewKeyUp="datagrid_PreviewKeyUp" PreviewKeyDown="datagrid_PreviewKeyDown" PreviewMouseWheel="datagrid_PreviewMouseWheel" TextChanged="editField_TextChanged"/>
+                <Controls:NumericUpDown x:Name="gotoID" HorizontalAlignment="Left" Margin="21,0,0,0" Width="112" FontSize="16" PreviewKeyDown="NumericUpDown_PreviewKeyDown" Minimum="0" Maximum="50000" ValueChanged="gotoID_ValueChanged" Value="1" />
+            </Grid>
+            <Grid Grid.Row="3">
+                <s:UTextViewer x:Name="txtViewer"/>
+                <Label x:Name="lab" Content="Label" HorizontalAlignment="Left" Margin="211,9,0,0" VerticalAlignment="Top" Height="29" Width="147"/>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Controls:MetroWindow>
