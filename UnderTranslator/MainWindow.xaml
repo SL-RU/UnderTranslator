@@ -21,7 +21,7 @@
             </MenuItem>
             <MenuItem x:Name="menu_about" Header="About" >
                 <MenuItem Header="About developer" Click="menu_about_Click"></MenuItem>
-                <MenuItem Header="Help"></MenuItem>
+                <MenuItem Header="Help" Click="MenuItem_Click_8"></MenuItem>
                 <MenuItem Header="Github page" Click="MenuItem_Click_4" ></MenuItem>
                 <MenuItem Header="Pack and extract apps" Click="MenuItem_Click_7"></MenuItem>
             </MenuItem>

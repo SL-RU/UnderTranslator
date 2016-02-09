@@ -469,7 +469,11 @@ namespace UnderTranslator
         {
             System.Diagnostics.Process.Start("https://github.com/fjay69/UndertaleTools");
         }
-
+        //help button
+        private void MenuItem_Click_8(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/SL-RU/UnderTranslator/blob/master/help/help.md");
+        }
         //Extract utility
         private void MenuItem_Click_5(object sender, RoutedEventArgs e)
         {
