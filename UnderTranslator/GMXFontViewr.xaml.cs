@@ -56,6 +56,8 @@ namespace UnderTranslator
             y = 0;
             float scale = GMXFontDB.xCoeff;//(float)size / (float)GMXFontDB.Size;
             cnvs.Children.Clear();
+            while (s.EndsWith("\\") || s.EndsWith("%") || s.EndsWith("/") || s.EndsWith("^"))
+                s = s.Remove(s.Length - 1);
             for(int i = 0; i<s.Length; i++)
             {
                 Text = s;

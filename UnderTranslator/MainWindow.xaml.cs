@@ -27,34 +27,40 @@ namespace UnderTranslator
         public MainWindow()
         {
             InitializeComponent();
-            LoadProject(@"C:\tmp\und");
-
         }
 
-        public void LoadProject(string s)
+        public bool LoadProject(string s)
         {
-            if (Project.Load(@"C:\tmp\und"))
+            if (Project.Load(s))
             {
-                bindLst = new ObservableCollection<STRDataGridRow>();
                 datagrid.ItemsSource = bindLst;
                 scr.Maximum = Project.origSTR.Length;
                 gotoID.Maximum = Project.origSTR.Length;
                 curID = 0;
-                SetSelectedId(0);
+                SetSelectedId(maxRows/2);
+                ShowData();
+                return true;
             }
+            return false;
+        }
 
+        public bool saveProject()
+        {
+            if (!Project.Loaded)
+                return false;
+            return Project.SaveProject();
         }
         
-        ObservableCollection<STRDataGridRow> bindLst;
+        ObservableCollection<STRDataGridRow> bindLst = new ObservableCollection<STRDataGridRow>();
         int selID = 0;
         int maxRows = 0;
         int curID = 0;
+        int lastSelectedID = -1;
 
         private void datagrid_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             maxRows = (int)((datagrid.ActualHeight - datagrid.ColumnHeaderHeight + 5) / (datagrid.RowHeight));
-            if (!Project.Loaded)
-                return;
+
             bindLst.Clear();
             datagrid.CancelEdit();
             for (int i = 0; i < maxRows; i++)
@@ -312,7 +318,134 @@ namespace UnderTranslator
 
         private void menu_about_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Developer: Alexander Lutsai (SL_RU)\ne-mail: s.lyra@ya.ru");
+            MessageBox.Show("Developer: Alexander Lutsai (SL_RU)\ne-mail: s.lyra@ya.ru\nVK: https://vk.com/sl_ru_dev");
+        }
+
+        private void search_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Down)
+            {
+                if (datagrid.SelectedValue is STRDataGridRow)
+                {
+                    if (!Project.Loaded || datagrid.SelectedValue == null || (datagrid.SelectedValue as STRDataGridRow).ID == int.MinValue)
+                        return;
+                }
+                else
+                    return;
+                e.Handled = true;
+                if (!(selID >= 0 && selID < Project.origSTR.Length - 2))
+                    return;
+
+                int i = selID + 1;
+                while(i < Project.origSTR.Length - 2)
+                {
+                    if (Project.origSTR[i].Contains(search.Text) || Project.tranSTR[i].Contains(search.Text) || i.ToString().Contains(search.Text))
+                    {
+                        lastSelectedID = selID;
+                        SetSelectedId(i);
+                        search.Focus();
+                        break;
+                    }
+                    i++;
+                }
+            }
+            if(e.Key == Key.Enter)
+            {
+                if (datagrid.SelectedValue is STRDataGridRow)
+                {
+                    if (!Project.Loaded || datagrid.SelectedValue == null || (datagrid.SelectedValue as STRDataGridRow).ID == int.MinValue)
+                        return;
+                }
+                else
+                    return;
+                e.Handled = true;
+                if (!(selID >= 0 && selID < Project.origSTR.Length - 2))
+                    return;
+
+                editField.Focus();
+            }
+            if (e.Key == Key.Up)
+            {
+                if (datagrid.SelectedValue is STRDataGridRow)
+                {
+                    if (!Project.Loaded || datagrid.SelectedValue == null || (datagrid.SelectedValue as STRDataGridRow).ID == int.MinValue)
+                        return;
+                }
+                else
+                    return;
+                e.Handled = true;
+                if (!(selID >= 0 && selID < Project.origSTR.Length - 2))
+                    return;
+                if(lastSelectedID >= 0)
+                {
+                    SetSelectedId(lastSelectedID);
+                    lastSelectedID = -1;
+                    search.Focus();
+                    return;
+                }
+
+                int i = selID - 1;
+                while (i >= 0)
+                {
+                    if (Project.origSTR[i].Contains(search.Text) || Project.tranSTR[i].Contains(search.Text) || i.ToString().Contains(search.Text))
+                    {
+                        SetSelectedId(i);
+                        search.Focus();
+                        break;
+                    }
+                    i--;
+                }
+            }
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (saveProject())
+                MessageBox.Show("Saved");
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (!Project.Loaded)
+                return;
+            string p = "trans_dump" + DateTime.Now.ToShortDateString() + " " + (DateTime.Now.Ticks % 50000).ToString() + ".txt";
+            if(Project.SaveProject(p))
+                MessageBox.Show("Dumped into: " + p);
+        }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            var dialog = new System.Windows.Forms.FolderBrowserDialog();
+            System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+            if(result == System.Windows.Forms.DialogResult.OK)
+            {
+                if(LoadProject(dialog.SelectedPath))
+                {
+                    MessageBox.Show("Loaded");
+                }
+                else
+                {
+                    MessageBox.Show("Error, maybe you shoos a wrong path");
+                }
+            }
+        }
+
+        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        {
+                Close();
+        }
+
+        private void MenuItem_Click_3(object sender, CancelEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure? Have you save the project?", "Ar u sure?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                e.Cancel = false;
+            else
+                e.Cancel = true;
+        }
+
+        private void MenuItem_Click_4(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/SL-RU/UnderTranslator");
         }
     }
 
@@ -345,7 +478,7 @@ namespace UnderTranslator
                 else
                     return " ";
             }
-            set { Project.tranSTR[ID] = value; OnPropertyChanged("ID"); OnPropertyChanged("Trans"); OnPropertyChanged("Orig"); }
+            set { Project.tranSTR[ID] = value; OnPropertyChanged("Trans"); }
         }
         int id;
         public int ID
@@ -390,13 +523,40 @@ namespace UnderTranslator
 
             return true;
         }
-
+        public static bool SaveProject()
+        {
+            return SaveProject("translate.txt");
+        }
+        public static bool SaveProject(string name)
+        {
+            if (!Project.Loaded)
+                return false;
+            File.WriteAllLines(System.IO.Path.Combine(PrjPath, name), tranSTR);
+            return true;
+        }
         public static bool LoadSTR(string path)
         {
-            if(!(File.Exists(System.IO.Path.Combine(path, "STRG.txt")) && File.Exists(System.IO.Path.Combine(path, "translate.txt"))))
+            if(!(File.Exists(System.IO.Path.Combine(path, "STRG.txt"))))
                 return false;
             origSTR = File.ReadAllLines(System.IO.Path.Combine(path, "STRG.txt"));
-            tranSTR = File.ReadAllLines(System.IO.Path.Combine(path, "translate.txt"));
+
+            if (File.Exists(System.IO.Path.Combine(path, "translate.txt")))
+            {
+                tranSTR = File.ReadAllLines(System.IO.Path.Combine(path, "translate.txt"));
+            }
+            else
+                tranSTR = new string[0];
+
+            if (tranSTR.Length < 5 || tranSTR.Length == 0)
+            {
+                tranSTR = new string[origSTR.Length];
+                for (int i = 0; i < origSTR.Length; i++)
+                {
+                    tranSTR[i] = origSTR[i];
+                }
+            }
+            if (origSTR.Length != tranSTR.Length || origSTR.Length == 0)
+                return false;
             return true;
         }
         

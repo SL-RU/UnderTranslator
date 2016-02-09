@@ -65,7 +65,17 @@ namespace UnderTranslator
         
         void showWFNormText(string text)
         {
-            text = text.Replace(@"\W", "⁰").Replace(@"\X", "⁰").Replace(@"\L", "⁹").Replace(@"\Y", "⁴").Replace(@"\G", "⁵").Replace(@"\B", "⁶").Replace(@"\O", "⁷").Replace(@"\R", "⁸").Replace(@"\P", "ⁿ").Replace("^1", "").Replace("^2", "").Replace("^3", "").Replace("^4", "").Replace("^5", "").Replace("^6", "").Replace("^7", "").Replace("^8", "").Replace("^9", "").Replace(@"\E0", "").Replace(@"\E1", "").Replace(@"\E2", "").Replace(@"\E3", "").Replace(@"\E4", "").Replace(@"\E5", "").Replace(@"\E6", "").Replace(@"\E7", "").Replace(@"\E8", "").Replace(@"\E9", "").Replace(@"\C", "").Replace(@"\X", "").Replace(@"\%%", "").Replace(@"\E0", "").Replace(@"\E1", "").Replace(@"\E2", "").Replace(@"\E3", "").Replace(@"\E4", "").Replace(@"\E5", "").Replace(@"\E6", "").Replace(@"\E7", "").Replace(@"\E8", "").Replace(@"\E9", "").Replace(@"\F0", "").Replace(@"\F1", "").Replace(@"\F2", "").Replace(@"\F3", "").Replace(@"\F4", "").Replace(@"\F5", "").Replace(@"\F6", "").Replace(@"\F7", "").Replace(@"\F8", "").Replace(@"\F9", "").Replace(@"\TS", "").Replace(@"\Ts", "").Replace(@"\TP", "").Replace(@"\TU", "").Replace(@"\TA", "").Replace(@"\TT", "").Replace(@"\Ta", "").Replace(@"\C", "").Replace(@"\%%", "");
+            text = text.Replace(@"\W", "⁰").Replace(@"\X", "⁰").Replace(@"\L", "⁹").Replace(@"\Y", "⁴").Replace(@"\G", "⁵").
+                Replace(@"\B", "⁶").Replace(@"\O", "⁷").Replace(@"\R", "⁸").Replace(@"\P", "ⁿ").Replace("^1", "").Replace("^2", "").
+                Replace("^3", "").Replace("^4", "").Replace("^5", "").Replace("^6", "").Replace("^7", "").Replace("^8", "").
+                Replace("^9", "").Replace(@"\E0", "").Replace(@"\E1", "").Replace(@"\E2", "").Replace(@"\E3", "").Replace(@"\E4", "").
+                Replace(@"\E5", "").Replace(@"\E6", "").Replace(@"\E7", "").Replace(@"\E8", "").Replace(@"\E9", "").Replace(@"\C", "").
+                Replace(@"\X", "").Replace(@"\%%", "").Replace(@"\E0", "").Replace(@"\E1", "").Replace(@"\E2", "").Replace(@"\E3", "").
+                Replace(@"\E4", "").Replace(@"\E5", "").Replace(@"\E6", "").Replace(@"\E7", "").Replace(@"\E8", "").Replace(@"\E9", "").
+                Replace(@"\F0", "").Replace(@"\F1", "").Replace(@"\F2", "").Replace(@"\F3", "").Replace(@"\F4", "").Replace(@"\F5", "").
+                Replace(@"\F6", "").Replace(@"\F7", "").Replace(@"\F8", "").Replace(@"\F9", "").Replace(@"\TS", "").Replace(@"\Ts", "").
+                Replace(@"\TP", "").Replace(@"\TU", "").Replace(@"\TA", "").Replace(@"\TT", "").Replace(@"\Ta", "").Replace(@"\C", "").
+                Replace(@"\%%", "").Replace(@"\M1", "").Replace(@"^0", "");  //I'm sorry for this s#&*, but I copypasted this from TransaTale
 
             wfnorm1.showStr("");
             fplain1.showStr("");
@@ -101,7 +111,6 @@ namespace UnderTranslator
             {
                 if (Mode == 2) fplain4.showStr(v[3]);
             }
-            wfnorm1.showStr(text);
         }
 
         private void stndrt_Checked(object sender, RoutedEventArgs e)
@@ -137,18 +146,25 @@ namespace UnderTranslator
                 return;
             setMode(2);
             GMXFontDB.LoadFont(Project.getFontPath(Project.PlainText));
+            showText(Text);
         }
 
         private void faceMode_Checked(object sender, RoutedEventArgs e)
         {
-            if(Mode == 0 || Mode == 1)
-                setMode(faceMode.IsChecked == true ? 1 : 0);
+            if (Mode == 0 || Mode == 1)
+            {
+                setMode(1);
+                showText(Text);
+            }
         }
 
         private void faceMode_Unchecked(object sender, RoutedEventArgs e)
         {
             if (Mode == 0 || Mode == 1)
-                setMode(faceMode.IsChecked == true ? 1 : 0);
+            {
+                setMode(0);
+                showText(Text);
+            }
         }
 
 
