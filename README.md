@@ -11,6 +11,9 @@ Application for comfortable Undertale translation.
 - Key bindings for comfortable work without touching mouse
 - Fast and withot lags
 
+#[Download .exe](https://yadi.sk/d/fEyk9L2WoabVA)
+NET 4.5 required.
+
 #[Howto use](https://github.com/SL-RU/UnderTranslator/blob/master/help/help.md)
 
 #Contacts
