@@ -43,7 +43,7 @@ namespace UnderTranslator
         /// 
         /// </summary>
         /// <param name="mode"> 0 - standart without face; 1 - with face; 2 - plain mode</param>
-        void setMode(int mode)
+        public void setMode(int mode)
         {
             withoutFaceNorm.Visibility = System.Windows.Visibility.Collapsed;
             FaceNorm.Visibility = System.Windows.Visibility.Collapsed;

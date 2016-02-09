@@ -14,15 +14,16 @@
             </MenuItem>
             <MenuItem Header="Edit" ></MenuItem>
             <MenuItem Header="Tools" >
-                <MenuItem Header="Dump translation" Click="MenuItem_Click_1"></MenuItem>
+                <MenuItem Header="Dump translation" Click="MenuItem_Click_1" ToolTip="Backup"></MenuItem>
                 <Separator />
-                <MenuItem Header="Pack"></MenuItem>
-                <MenuItem Header="Extract"></MenuItem>
+                <MenuItem Header="Pack" Click="MenuItem_Click_6" ></MenuItem>
+                <MenuItem Header="Extract" Click="MenuItem_Click_5"></MenuItem>
             </MenuItem>
             <MenuItem x:Name="menu_about" Header="About" >
                 <MenuItem Header="About developer" Click="menu_about_Click"></MenuItem>
                 <MenuItem Header="Help"></MenuItem>
                 <MenuItem Header="Github page" Click="MenuItem_Click_4" ></MenuItem>
+                <MenuItem Header="Pack and extract apps" Click="MenuItem_Click_7"></MenuItem>
             </MenuItem>
         </Menu>
         <Grid Margin="0,30,0,0">
