@@ -62,7 +62,7 @@ namespace UnderTranslator
             }
             Mode = mode;
         }
-        
+
         void showWFNormText(string text)
         {
             text = text.Replace(@"\W", "⁰").Replace(@"\X", "⁰").Replace(@"\L", "⁹").Replace(@"\Y", "⁴").Replace(@"\G", "⁵").
@@ -79,35 +79,66 @@ namespace UnderTranslator
 
             wfnorm1.showStr("");
             fplain1.showStr("");
-            fnorm1.showStr ("");
+            fnorm1.showStr("");
             wfnorm2.showStr("");
             fplain2.showStr("");
-            fnorm2.showStr ("");
+            fnorm2.showStr("");
             wfnorm3.showStr("");
             fplain3.showStr("");
-            fnorm3.showStr ("");
+            fnorm3.showStr("");
             fplain4.showStr("");
 
-            string[] v = text.Split('&');
-            if(v.Length > 0)
+            List<string> v = new List<string>(text.Split('&'));
+            int maxC = 0;
+            if(Mode == 0)
             {
+                maxC = (int)(wfnorm1.Width / (GMXFontDB.Shift * GMXFontDB.xCoeff));
+            }
+            else if (Mode == 1)
+                {
+                    maxC = (int)(fnorm1.Width / (GMXFontDB.Shift * GMXFontDB.xCoeff));
+                }
+            else if (Mode == 2)
+            {
+                maxC = (int)(fplain2.Width / (GMXFontDB.Shift * GMXFontDB.xCoeff));
+            }
+            if (v.Capacity > 0)
+            {
+
+                if (v[0].Length > maxC)
+                {
+                    v.Insert(1, v[0].Substring(maxC));
+                    v[0] = v[0].Remove(maxC);
+                }
                 if (Mode == 0) wfnorm1.showStr(v[0]);
                 if (Mode == 2) fplain1.showStr(v[0]);
                 if (Mode == 1) fnorm1.showStr(v[0]);
             }
-            if (v.Length > 1)
+            if (v.Capacity > 1)
             {
+
+                if (v[1].Length > maxC)
+                {
+                    v.Insert(2, v[1].Substring(maxC));
+                    v[1] = v[1].Remove(maxC);
+                }
                 if (Mode == 0) wfnorm2.showStr(v[1]);
                 if (Mode == 2) fplain2.showStr(v[1]);
                 if (Mode == 1) fnorm2.showStr(v[1]);
             }
-            if (v.Length > 2)
+            if (v.Capacity > 2)
             {
+
+                if (v[2].Length > maxC)
+                {
+                    v.Insert(3, v[2].Substring(maxC));
+                    v[2] = v[2].Remove(maxC);
+                }
                 if (Mode == 0) wfnorm3.showStr(v[2]);
                 if (Mode == 2) fplain3.showStr(v[2]);
                 if (Mode == 1) fnorm3.showStr(v[2]);
             }
-            if (v.Length > 3)
+            if (v.Capacity > 3)
             {
                 if (Mode == 2) fplain4.showStr(v[3]);
             }

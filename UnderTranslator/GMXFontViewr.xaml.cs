@@ -76,6 +76,7 @@ namespace UnderTranslator
                     //rec.SnapsToDevicePixels = true;
                     cnvs.Children.Add(rec);
                     Canvas.SetTop(rec, y + g.offset * scale); Canvas.SetLeft(rec, x);
+
                     x += (int)(g.shift * scale);
                     //img.Source = g.bmap;
                 } 
@@ -113,7 +114,7 @@ namespace UnderTranslator
         }
         public static bool Loaded = false;
         public static string Name;
-        public static int Size, xCoeff;
+        public static int Size, xCoeff = 1, Shift = 1;
         public static Dictionary<char, Glyph> glyphs;
         public static bool LoadFont(string path)
         {
@@ -122,40 +123,50 @@ namespace UnderTranslator
             string ipath;
             if (path.EndsWith(".gmx") && File.Exists(path))
             {
-                XDocument X = XDocument.Load(path);
-                ipath = X.Root.Element("image").Value;
-                ipath = path.Remove(path.LastIndexOf('\\') + 1) + ipath;
-
-                Name = X.Root.Element("name").Value;
-                Size = int.Parse(X.Root.Element("size").Value);
-                if (Name.StartsWith("8bitoperator") || Name.StartsWith("DotumChe"))
-                    xCoeff = 1;
-                else
-                    xCoeff = 2;
-
-                BitmapImage src = new BitmapImage();
-                src.BeginInit();
-                src.UriSource = new Uri(ipath, UriKind.Relative);
-                src.CacheOption = BitmapCacheOption.OnLoad;
-                src.EndInit();
-
-                glyphs = new Dictionary<char, Glyph>();
-                foreach (var v in X.Root.Element("glyphs").Elements())
+                using (var reader = new XmlTextReader(path))
                 {
-                    int w = int.Parse(v.Attribute("w").Value),
-                        h = int.Parse(v.Attribute("h").Value),
-                        x = int.Parse(v.Attribute("x").Value),
-                        y = int.Parse(v.Attribute("y").Value);
-                    Glyph g = new Glyph();
-                    g.x = x;
-                    g.y = y;
-                    g.w = w;
-                    g.h = h;
-                    g.offset = int.Parse(v.Attribute("offset").Value);
-                    g.shift = int.Parse(v.Attribute("shift").Value);
-                    g.bmap = new CroppedBitmap(src, new Int32Rect(x, y, w, h));
+                    XDocument X = XDocument.Load(reader);
+                    ipath = X.Root.Element("image").Value;
+                    ipath = path.Remove(path.LastIndexOf('\\') + 1) + ipath;
 
-                    glyphs.Add((char)int.Parse(v.Attribute("character").Value), g);
+                    Name = X.Root.Element("name").Value;
+                    Size = int.Parse(X.Root.Element("size").Value);
+                    Shift = 8;
+                    if (Name.StartsWith("DotumChe"))
+                    {
+                        xCoeff = 1;
+                    }
+                    else
+                    {
+                        xCoeff = 2;
+                    }
+                    if (Name.StartsWith("Papyrus"))
+                        Shift = 12;
+
+                    BitmapImage src = new BitmapImage();
+                    src.BeginInit();
+                    src.UriSource = new Uri(ipath, UriKind.Relative);
+                    src.CacheOption = BitmapCacheOption.OnLoad;
+                    src.EndInit();
+
+                    glyphs = new Dictionary<char, Glyph>();
+                    foreach (var v in X.Root.Element("glyphs").Elements())
+                    {
+                        int w = int.Parse(v.Attribute("w").Value),
+                            h = int.Parse(v.Attribute("h").Value),
+                            x = int.Parse(v.Attribute("x").Value),
+                            y = int.Parse(v.Attribute("y").Value);
+                        Glyph g = new Glyph();
+                        g.x = x;
+                        g.y = y;
+                        g.w = w;
+                        g.h = h;
+                        g.offset = int.Parse(v.Attribute("offset").Value);
+                        g.shift = Shift;//int.Parse(v.Attribute("shift").Value);
+                        g.bmap = new CroppedBitmap(src, new Int32Rect(x, y, w, h));
+
+                        glyphs.Add((char)int.Parse(v.Attribute("character").Value), g);
+                    }
                 }
             }
             else

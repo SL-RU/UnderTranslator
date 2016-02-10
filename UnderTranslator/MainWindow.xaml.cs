@@ -28,6 +28,21 @@ namespace UnderTranslator
         public MainWindow()
         {
             InitializeComponent();
+            if(File.Exists("lastpath.txt"))
+            {
+                var v = File.ReadAllLines("lastpath.txt");
+                if(v.Length > 0)
+                    if(Directory.Exists(v[0]))
+                    {
+                        LoadProject(v[0]);
+                    }
+                if(v.Length > 1)
+                    if (Directory.Exists(v[1]))
+                    {
+                        Project.UndertalePath = v[1];
+                    }
+                
+            }
         }
 
         
@@ -518,6 +533,10 @@ namespace UnderTranslator
                             CreateNoWindow = true
                         }
                     };
+                    if (System.Environment.OSVersion.Version.Major >= 6)
+                    {
+                        proc.StartInfo.Verb = "runas";
+                    }
                     proc.Start();
                     string o = "";
                     string line = "";
@@ -527,6 +546,10 @@ namespace UnderTranslator
                         o += line + "\n";
                     }
                     MessageBox.Show(o);
+
+                    File.WriteAllLines("lastpath.txt", new string[] { dest, dialog.SelectedPath });
+                    Project.UndertalePath = dialog.SelectedPath;
+                    
                     if(line.StartsWith("Chunk AUDO offset:"))
                     {
                         MessageBox.Show("* Undertale has been extracted. \n* You are filled with determination.");
@@ -576,6 +599,8 @@ namespace UnderTranslator
                     MessageBox.Show("This is not Undertale! YOU LITTLE LIAR!111");
                     return;
                 }
+                Project.UndertalePath = dialog.SelectedPath;
+
                 var dialog2 = new System.Windows.Forms.FolderBrowserDialog();
                 dialog2.Description = "Select project folder with translation.";
                 if (Project.Loaded)
@@ -592,6 +617,9 @@ namespace UnderTranslator
                     
                     File.Copy(up, System.IO.Path.Combine(dialog.SelectedPath, "data_backup" + DateTime.Now.ToShortDateString() + " " + DateTime.Now.Hour.ToString() + "." + DateTime.Now.Minute.ToString() + ".win"), true);
 
+                    File.WriteAllLines("lastpath.txt", new string[] { dest, dialog.SelectedPath });
+                    Project.UndertalePath = dialog.SelectedPath;
+
                     var proc = new Process
                     {
                         StartInfo = new ProcessStartInfo
@@ -603,6 +631,10 @@ namespace UnderTranslator
                             CreateNoWindow = true
                         }
                     };
+                    if (System.Environment.OSVersion.Version.Major >= 6)
+                    {
+                        proc.StartInfo.Verb = "runas";
+                    }
                     proc.Start();
                     string o = "";
                     string line = "";
@@ -678,12 +710,14 @@ namespace UnderTranslator
 
         public static string PrjPath = "";
 
-        public static string PapFont = "fnt_papyrus.gmx",
-            SansFont = "fnt_comicsans.gmx",
-            MainFont = "fnt_main.gmx",
-            PlainText = "fnt_plain.gmx",
+        public static string PapFont = "9.font.gmx",
+            SansFont = "8.gmx",
+            MainFont = "main2.gmx",
+            PlainText = "4.font.gmx",
             FontFolder = "FONT",
             NewFontFolder = "FONT_new";
+
+        public static string UndertalePath = "";
 
         public static string[] origSTR;
         public static string[] tranSTR;
@@ -696,8 +730,19 @@ namespace UnderTranslator
                 return false;
             }
 
+            if (File.Exists("fontnames.txt"))
+            {
+                var nms = File.ReadAllLines("fontnames.txt");
+                PapFont = nms[0];
+                SansFont = nms[1];
+                MainFont = nms[2];
+                PlainText = nms[3];
+            }
+
             PrjPath = path;
             Loaded = true;
+
+            File.WriteAllLines("lastpath.txt", new string[] {PrjPath, UndertalePath});
 
             return true;
         }
@@ -709,6 +754,7 @@ namespace UnderTranslator
         {
             if (!Project.Loaded)
                 return false;
+            File.Delete(System.IO.Path.Combine(PrjPath, name));
             File.WriteAllLines(System.IO.Path.Combine(PrjPath, name), tranSTR);
             return true;
         }

@@ -17,7 +17,7 @@
         <RadioButton x:Name="sans" Content="Sans" Margin="0,0,10,0" GroupName="UShowTextType" FontSize="16" HorizontalAlignment="Right" Checked="sans_Checked"/>
         <RadioButton x:Name="plainmode" Content="Plain" Margin="0,0,249,0" GroupName="UShowTextType" FontSize="16" HorizontalAlignment="Right" Checked="plainmode_Checked"/>
         <Canvas x:Name="withoutFaceNorm" Margin="0" Grid.Row="1" Background="Black">
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="150" Stroke="White" VerticalAlignment="Top" Width="577" StrokeThickness="6" Canvas.Left="10" Canvas.Top="10"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="150" Stroke="White" VerticalAlignment="Top" Width="578" StrokeThickness="6" Canvas.Left="10" Canvas.Top="10"/>
             <s:GMXFontViewr x:Name="wfnorm1" Height="36" Canvas.Top="30" Width="541" Canvas.Left="37"/>
             <s:GMXFontViewr x:Name="wfnorm2" Height="36" Canvas.Top="71" Width="541" Canvas.Left="37"/>
             <s:GMXFontViewr x:Name="wfnorm3" Height="36" Canvas.Top="112" Width="541" Canvas.Left="37"/>
