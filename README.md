@@ -1,7 +1,7 @@
 # UnderTranslator
 Application for comfortable Undertale translation.
 
-![screenshot](httpsraw.githubusercontent.comSL-RUUnderTranslatormasterhelpscr.png)
+![screenshot](https://raw.githubusercontent.com/SL-RU/UnderTranslator/master/help/scr.png)
 
 #Features
 
@@ -11,10 +11,11 @@ Application for comfortable Undertale translation.
 - Key bindings for comfortable work without touching mouse
 - Fast and withot lags
 
-#[Download .exe](httpsyadi.skdfEyk9L2WoabVA)
+#[Download .exe](https://yadi.sk/d/gKUyWUYNocDgV)
+
 NET 4.5 required.
 
-#[Howto use](httpsgithub.comSL-RUUnderTranslatorblobmasterhelphelp.md)
+#[Howto use](https://github.com/SL-RU/UnderTranslator/blob/master/help/help.md)
 
 #Contacts
 
