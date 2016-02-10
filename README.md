@@ -1,22 +1,25 @@
 # UnderTranslator
 Application for comfortable Undertale translation.
 
-![screenshot](https://raw.githubusercontent.com/SL-RU/UnderTranslator/master/help/scr.png)
+![screenshot](httpsraw.githubusercontent.comSL-RUUnderTranslatormasterhelpscr.png)
 
 #Features
 
 - Live preview in different modes
 - Support for custom fonts for live preview
-- GUI for Extracting and packing data.win file [utilities](https://github.com/fjay69/UndertaleTools)
+- GUI for Extracting and packing data.win file [utilities](httpsgithub.comfjay69UndertaleTools)
 - Key bindings for comfortable work without touching mouse
 - Fast and withot lags
 
-#[Howto use](https://github.com/SL-RU/UnderTranslator/blob/master/help/help.md)
+#[Download .exe](httpsyadi.skdfEyk9L2WoabVA)
+NET 4.5 required.
+
+#[Howto use](httpsgithub.comSL-RUUnderTranslatorblobmasterhelphelp.md)
 
 #Contacts
 
-e-mail: s.lyra@ya.ru
-VK: https://vk.com/sl_ru_dev
+e-mail s.lyra@ya.ru
+VK httpsvk.comsl_ru_dev
 
 ##Bugs and features
 
