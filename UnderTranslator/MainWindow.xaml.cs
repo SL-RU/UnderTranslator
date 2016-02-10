@@ -384,6 +384,8 @@ namespace UnderTranslator
                 if (!(selID >= 0 && selID < Project.origSTR.Length - 2))
                     return;
 
+                saveProject();
+
                 editField.Focus();
             }
             if (e.Key == Key.Up) //go to last and then search back

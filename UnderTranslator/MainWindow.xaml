@@ -12,7 +12,6 @@
                 <Separator />
                 <MenuItem Header="Exit" Click="MenuItem_Click_3" ></MenuItem>
             </MenuItem>
-            <MenuItem Header="Edit" ></MenuItem>
             <MenuItem Header="Tools" >
                 <MenuItem Header="Dump translation" Click="MenuItem_Click_1" ToolTip="Backup"></MenuItem>
                 <Separator />
