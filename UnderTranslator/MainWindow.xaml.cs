@@ -31,16 +31,20 @@ namespace UnderTranslator
             if(File.Exists("lastpath.txt"))
             {
                 var v = File.ReadAllLines("lastpath.txt");
-                if(v.Length > 0)
-                    if(Directory.Exists(v[0]))
+                if (v.Length > 0)
+                {
+                    if (Directory.Exists(v[0]))
                     {
                         LoadProject(v[0]);
                     }
-                if(v.Length > 1)
+                }
+                if (v.Length > 1)
+                {
                     if (Directory.Exists(v[1]))
                     {
                         Project.UndertalePath = v[1];
                     }
+                }
                 
             }
         }
@@ -183,6 +187,8 @@ namespace UnderTranslator
                 curID = Math.Min(curID + 1, Project.origSTR.Length);
                 ShowData();
                 e.Handled = true;
+
+                saveProject();
 
                 if (datagrid.SelectedIndex == -1)
                     SetSelectedId(curID);
@@ -384,8 +390,6 @@ namespace UnderTranslator
                 if (!(selID >= 0 && selID < Project.origSTR.Length - 2))
                     return;
 
-                saveProject();
-
                 editField.Focus();
             }
             if (e.Key == Key.Up) //go to last and then search back
@@ -501,6 +505,8 @@ namespace UnderTranslator
             }
             //Extract Undertale
             var dialog = new System.Windows.Forms.FolderBrowserDialog();
+            if (Directory.Exists(Project.UndertalePath))
+                dialog.SelectedPath = Project.UndertalePath;
             dialog.Description = "Select Undertale folder";
             System.Windows.Forms.DialogResult result = dialog.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK)
@@ -592,6 +598,9 @@ namespace UnderTranslator
             var dialog = new System.Windows.Forms.FolderBrowserDialog();
             dialog.Description = "Select Undertale folder";
 
+            if (Directory.Exists(Project.UndertalePath))
+                dialog.SelectedPath = Project.UndertalePath;
+
             System.Windows.Forms.DialogResult result = dialog.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK)
             {
@@ -657,6 +666,20 @@ namespace UnderTranslator
             {
                 MessageBox.Show("Please, choose Undertale folder.");
             }
+        }
+        //Open folder with current project
+        private void MenuItem_Click_9(object sender, RoutedEventArgs e)
+        {
+            if(Project.Loaded)
+                Process.Start("explorer.exe", Project.PrjPath);
+        }
+        //Launch undertale
+        private void MenuItem_Click_10(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists(System.IO.Path.Combine(Project.UndertalePath, "UNDERTALE.exe")))
+                Process.Start(System.IO.Path.Combine(Project.UndertalePath, "UNDERTALE.exe"));
+            else
+                MessageBox.Show("Select directory with Undertale");
         }
 
     }
