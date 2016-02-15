@@ -13,10 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.ComponentModel;
 using System.Diagnostics;
+using Microsoft.Win32;
 
 namespace UnderTranslator
 {
@@ -28,7 +30,7 @@ namespace UnderTranslator
         public MainWindow()
         {
             InitializeComponent();
-            if(File.Exists("lastpath.txt"))
+            if (File.Exists("lastpath.txt"))
             {
                 var v = File.ReadAllLines("lastpath.txt");
                 if (v.Length > 0)
@@ -45,11 +47,11 @@ namespace UnderTranslator
                         Project.UndertalePath = v[1];
                     }
                 }
-                
+
             }
         }
 
-        
+
         ObservableCollection<STRDataGridRow> bindLst = new ObservableCollection<STRDataGridRow>();
         int selID = 0;  //element ID selected in datagrid
         int maxRows = 0;//currently displaying rows count
@@ -107,7 +109,7 @@ namespace UnderTranslator
         {
             if (!Project.Loaded)
                 return;
-            if(!(id >= 0 && id < Project.origSTR.Length))
+            if (!(id >= 0 && id < Project.origSTR.Length))
                 return;
             selID = id;
             gotoID.Value = id;
@@ -349,7 +351,7 @@ namespace UnderTranslator
         //handle SEARCH keys 
         private void search_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.Down) //Down - search forward
+            if (e.Key == Key.Down) //Down - search forward
             {
                 if (datagrid.SelectedValue is STRDataGridRow)
                 {
@@ -363,9 +365,9 @@ namespace UnderTranslator
                     return;
 
                 int i = selID + 1;
-                while(i < Project.origSTR.Length - 2)
+                while (i < Project.origSTR.Length - 2)
                 {
-                    if (Project.origSTR[i].ToUpper().Contains(search.Text.ToUpper()) 
+                    if (Project.origSTR[i].ToUpper().Contains(search.Text.ToUpper())
                         || Project.tranSTR[i].ToUpper().Contains(search.Text.ToUpper())
                         || i.ToString().ToUpper().Contains(search.Text.ToUpper()))
                     {
@@ -377,7 +379,7 @@ namespace UnderTranslator
                     i++;
                 }
             }
-            if(e.Key == Key.Enter) //goto edit field
+            if (e.Key == Key.Enter) //goto edit field
             {
                 if (datagrid.SelectedValue is STRDataGridRow)
                 {
@@ -404,7 +406,7 @@ namespace UnderTranslator
                 e.Handled = true;
                 if (!(selID >= 0 && selID < Project.origSTR.Length - 2))
                     return;
-                if(lastSelectedID >= 0)
+                if (lastSelectedID >= 0)
                 {
                     SetSelectedId(lastSelectedID);
                     lastSelectedID = -1;
@@ -447,7 +449,7 @@ namespace UnderTranslator
             if (!Project.Loaded)
                 return;
             string p = "trans_dump" + DateTime.Now.ToShortDateString() + " " + (DateTime.Now.Ticks % 50000).ToString() + ".txt";
-            if(Project.SaveProject(p))
+            if (Project.SaveProject(p))
                 MessageBox.Show("Dumped into: " + p);
         }
         //open button
@@ -455,9 +457,9 @@ namespace UnderTranslator
         {
             var dialog = new System.Windows.Forms.FolderBrowserDialog();
             System.Windows.Forms.DialogResult result = dialog.ShowDialog();
-            if(result == System.Windows.Forms.DialogResult.OK)
+            if (result == System.Windows.Forms.DialogResult.OK)
             {
-                if(LoadProject(dialog.SelectedPath))
+                if (LoadProject(dialog.SelectedPath))
                 {
                     MessageBox.Show("Loaded");
                 }
@@ -470,7 +472,7 @@ namespace UnderTranslator
         //exit button
         private void MenuItem_Click_3(object sender, RoutedEventArgs e)
         {
-                Close();
+            Close();
         }
         //on exit
         private void MenuItem_Click_3(object sender, CancelEventArgs e)
@@ -512,7 +514,7 @@ namespace UnderTranslator
             if (result == System.Windows.Forms.DialogResult.OK)
             {
                 string up = System.IO.Path.Combine(dialog.SelectedPath, "data.win");
-                if(!File.Exists(up))
+                if (!File.Exists(up))
                 {
                     MessageBox.Show("This is not Undertale! YOU LITTLE LIAR!111");
                     return;
@@ -557,8 +559,8 @@ namespace UnderTranslator
 
                     File.WriteAllLines("lastpath.txt", new string[] { dest, dialog.SelectedPath });
                     Project.UndertalePath = dialog.SelectedPath;
-                    
-                    if(line.StartsWith("Chunk AUDO offset:"))
+
+                    if (line.StartsWith("Chunk AUDO offset:"))
                     {
                         MessageBox.Show("* Undertale has been extracted. \n* You are filled with determination.");
                         if (Project.Loaded)
@@ -605,7 +607,7 @@ namespace UnderTranslator
             if (result == System.Windows.Forms.DialogResult.OK)
             {
                 string up = System.IO.Path.Combine(dialog.SelectedPath, "data.win");
-                if(!File.Exists(up))
+                if (!File.Exists(up))
                 {
                     MessageBox.Show("This is not Undertale! YOU LITTLE LIAR!111");
                     return;
@@ -625,7 +627,7 @@ namespace UnderTranslator
                         MessageBox.Show("This is not your translation folder! Choose folder, where you extact THE GAME");
                         return;
                     }
-                    
+
                     File.Copy(up, System.IO.Path.Combine(dialog.SelectedPath, "data_backup" + DateTime.Now.ToShortDateString() + " " + DateTime.Now.Hour.ToString() + "." + DateTime.Now.Minute.ToString() + ".win"), true);
 
                     File.WriteAllLines("lastpath.txt", new string[] { dest, dialog.SelectedPath });
@@ -670,7 +672,7 @@ namespace UnderTranslator
         //Open folder with current project
         private void MenuItem_Click_9(object sender, RoutedEventArgs e)
         {
-            if(Project.Loaded)
+            if (Project.Loaded)
                 Process.Start("explorer.exe", Project.PrjPath);
         }
         //Launch undertale
@@ -680,6 +682,86 @@ namespace UnderTranslator
                 Process.Start(System.IO.Path.Combine(Project.UndertalePath, "UNDERTALE.exe"));
             else
                 MessageBox.Show("Select directory with Undertale");
+        }
+
+        private async void MenuItem_Click_11(object sender, RoutedEventArgs e)
+        {
+            if (datagrid.SelectedValue is STRDataGridRow)
+            {
+                if (!Project.Loaded || datagrid.SelectedValue == null || (datagrid.SelectedValue as STRDataGridRow).ID == int.MinValue)
+                    return;
+            }
+            else
+                return;
+
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "Text Files (.txt)|*.txt|All Files (*.*)|*.*";
+            openFileDialog1.FilterIndex = 1;
+            openFileDialog1.Multiselect = true;
+
+            
+
+            string fname = "";
+            if (openFileDialog1.ShowDialog() == true)
+            {
+                fname = openFileDialog1.FileName;
+            }
+            else
+                return;
+
+            var strs = File.ReadAllLines(fname);
+
+            MenuItem_Click_1(null, null);
+
+            var res = await this.ShowInputAsync("Paste from notabenoid file", "Input ID in which will be placed first line of the file");
+            int s, n, sf;
+            if (!int.TryParse(res, out s))
+            {
+                await this.ShowMessageAsync("Paste from notabenoid file", "input a number");
+                return;
+            }
+            if (s < 0 || s >= Project.origSTR.Length)
+            {
+                await this.ShowMessageAsync("Paste from notabenoid file", "Wrong ID");
+                return;
+            }
+
+            res = await this.ShowInputAsync("Paste from notabenoid file", "Input number of first line of the file(1 is zero index, " + strs.Length.ToString() + " is max)");
+            if (!int.TryParse(res, out sf))
+            {
+                await this.ShowMessageAsync("Paste from notabenoid file", "input a number");
+                return;
+            }
+            sf -= (1 - sf % 2);
+            if (sf < 1 || sf > strs.Length)
+            {
+                await this.ShowMessageAsync("Paste from notabenoid file", "Wrong index");
+                return;
+            }
+
+            res = await this.ShowInputAsync("Paste from notabenoid file", "Input count of lines to paste(" + (strs.Length - sf).ToString() + "is max)");
+            if (!int.TryParse(res, out n))
+            {
+                await this.ShowMessageAsync("Paste from notabenoid file", "input a number");
+                return;
+            }
+            if (n < 1 || n >= (strs.Length - sf) / 2)
+            {
+                await this.ShowMessageAsync("Paste from notabenoid file", "Wrong count");
+                return;
+            }
+
+            MessageDialogResult retres = await this.ShowMessageAsync("Paste from notabenoid file", "Paste?", MessageDialogStyle.AffirmativeAndNegative);
+            if (retres == MessageDialogResult.Affirmative)
+            {
+                int c = sf - 1;
+                for (int i = s; i <= Math.Min(Project.origSTR.Length - 1, s + n - 1); i++)
+                {
+                    Project.tranSTR[i] = strs[c];
+                    c += 2;
+                }
+                ShowData();
+            }
         }
 
     }
@@ -696,7 +778,8 @@ namespace UnderTranslator
 
         public string Orig
         {
-            get {
+            get
+            {
                 if (ID >= 0 && ID < Project.origSTR.Length)
                     return Project.origSTR[ID];
                 else
@@ -767,7 +850,7 @@ namespace UnderTranslator
             PrjPath = path;
             Loaded = true;
 
-            File.WriteAllLines("lastpath.txt", new string[] {PrjPath, UndertalePath});
+            File.WriteAllLines("lastpath.txt", new string[] { PrjPath, UndertalePath });
 
             return true;
         }
@@ -785,7 +868,7 @@ namespace UnderTranslator
         }
         public static bool LoadSTR(string path)
         {
-            if(!(File.Exists(System.IO.Path.Combine(path, "STRG.txt"))))
+            if (!(File.Exists(System.IO.Path.Combine(path, "STRG.txt"))))
                 return false;
             origSTR = File.ReadAllLines(System.IO.Path.Combine(path, "STRG.txt"));
 
@@ -808,10 +891,10 @@ namespace UnderTranslator
                 return false;
             return true;
         }
-        
+
         public static string getFontPath(string s)
         {
-            if(File.Exists(System.IO.Path.Combine(PrjPath, NewFontFolder, s)))
+            if (File.Exists(System.IO.Path.Combine(PrjPath, NewFontFolder, s)))
             {
                 return System.IO.Path.Combine(PrjPath, NewFontFolder, s);
             }

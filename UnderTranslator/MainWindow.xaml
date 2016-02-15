@@ -13,6 +13,9 @@
                 <Separator />
                 <MenuItem Header="Exit" Click="MenuItem_Click_3" ></MenuItem>
             </MenuItem>
+            <MenuItem Header="Edit" >
+                <MenuItem Header="Paste translation from file" Click="MenuItem_Click_11"></MenuItem>
+            </MenuItem>
             <MenuItem Header="Tools" >
                 <MenuItem Header="Dump translation" Click="MenuItem_Click_1" ToolTip="Backup"></MenuItem>
                 <Separator />

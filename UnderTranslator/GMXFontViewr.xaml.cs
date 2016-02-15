@@ -89,7 +89,7 @@ namespace UnderTranslator
         {
             switch(col)
             {
-                case "⁰": col = "White"; break;
+                case "⁰": col = inverted ? "Black" : "White"; break;
                 case "⁴": col = "Yellow"; break;
                 case "⁵": col = "Green"; break;
                 case "⁶": col = "Blue"; break;

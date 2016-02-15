@@ -102,7 +102,7 @@ namespace UnderTranslator
             {
                 maxC = (int)(fplain2.Width / (GMXFontDB.Shift * GMXFontDB.xCoeff));
             }
-            if (v.Capacity > 0)
+            if (v.Count > 0)
             {
 
                 if (v[0].Length > maxC)
@@ -114,7 +114,7 @@ namespace UnderTranslator
                 if (Mode == 2) fplain1.showStr(v[0]);
                 if (Mode == 1) fnorm1.showStr(v[0]);
             }
-            if (v.Capacity > 1)
+            if (v.Count > 1)
             {
 
                 if (v[1].Length > maxC)
@@ -126,7 +126,7 @@ namespace UnderTranslator
                 if (Mode == 2) fplain2.showStr(v[1]);
                 if (Mode == 1) fnorm2.showStr(v[1]);
             }
-            if (v.Capacity > 2)
+            if (v.Count > 2)
             {
 
                 if (v[2].Length > maxC)
@@ -138,7 +138,7 @@ namespace UnderTranslator
                 if (Mode == 2) fplain3.showStr(v[2]);
                 if (Mode == 1) fnorm3.showStr(v[2]);
             }
-            if (v.Capacity > 3)
+            if (v.Count > 3)
             {
                 if (Mode == 2) fplain4.showStr(v[3]);
             }
