@@ -12,35 +12,36 @@ Tools->Dump translation - your translation will be saved in current state.
 
 Tools->Pack choose folder with Undertale, choose folder UndertaleRes. If everything is ok - project will be packed. And you can able to run Undertale with your changes.
 
-//Переводчики, поможете перевести это? Я не очень хорошо пишу и говорю на английском. Спасибо
 
 ##edit field
 
-Тогда ваш курсор находитсЯ in edit field вы можете изменять текст и он будет в реальном времени отображаться на превью. „оступны клавиши:
+When focus is in edit field you can change text. Also available keys:
 
-- Enter: сохранить изменения(изменения отобразятся в таблице) в таблице и перейти к следующей ячейке. СОХРАНЯЕТ ИЗМЕНЕНИЯ В ФАЙЛ
-- Стрелка вниз: перейти на следующую ячейку БЕЗ соранения изменений в таблице
-- Стрелка вверх: перейти в верхнюю ячейку СОХРАНЯЯ изменения в таблице
-- Esc: собросить изменения
+- Enter: save changes in table and go to next ID. AND SAVE translate.txt!!!
+- Down arrow: DO NOY save changes in table and go to next ID
+- Up arrow: save changes in table and go to prev ID
+- Esc: reset field
 
-Прокрутка колесом не сохраняет изменения, так же как и изменение выделенного элемента мышкой.
+Mouse wheel don't save changes.
 
-//Стрелки вверх/вниз работают в любом месте, так же как и прокрутка колесом.
+//Arrows and wheel work everywhere.
 
-##Превью
-Думаю там всё ясно - просто потыкайте.
+##Preview
+Just try that 4 buttons by yourself =)
 
-По-умолчанию берутся шрифты из папки FONT, но если шрифт с таким же названием лежит в папке FONT_new, то ОН БЕРЁТСЯ ОТТУДА
+By default fonts grabs from FONT folder, but if there is font with same name in FONT_new, than font grabs from there.
 
-##Поиск
+##Search
 
-Если ваш курсор находится в поле поиска, то доступны клавиши:
+If focus is in search field then available keys are:
 
-- Вниз: текущей ячейкой будет установлена следующая, содержащая текст, который вы ввели в поле поиска, если такая есть
-- Вверх: сначала вы попадёте в прошлую ячейку, а затем в ячейку с меньшим номером индекса и содержащую введённый текст
-- Enter: Перейти в поле ввода
+- Enter: go to editfield
+- Down arrow: go to next ID which contains that text
+- Up arrow: go to back ID which contains that text
+
     
-##СРЕДНЯЯ КНОПКА МЫШКИ
+##Middle button mouse click
 
-СРЕДНЯЯ КНОПКА МЫШКИ! Для удобства копирования вы можете нажать среднюю кнопку мышки в любом месте приложения и текст из буффера обмена заменит текст текущей ячейки. И, если стоит галка(как на скиншоте снизу), то изменения сохранятся и будет переход в нижнюю ячейку.
+You can click middle button mouse and text from copypastebuffer will replace text in current cell. And if that checkbox is checked then changes saving and selection goes to next ID
+
 ![](https://raw.githubusercontent.com/SL-RU/UnderTranslator/master/help/2.png)
