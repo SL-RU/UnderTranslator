@@ -33,18 +33,19 @@ namespace UnderTranslator
             if (File.Exists("lastpath.txt"))
             {
                 var v = File.ReadAllLines("lastpath.txt");
-                if (v.Length > 0)
+                if (v.Count() > 0)
                 {
                     if (Directory.Exists(v[0]))
                     {
                         LoadProject(v[0]);
                     }
                 }
-                if (v.Length > 1)
+                if (v.Count() > 1)
                 {
                     if (Directory.Exists(v[1]))
                     {
                         Project.UndertalePath = v[1];
+                        File.WriteAllLines("lastpath.txt", new string[] { Project.PrjPath, Project.UndertalePath });
                     }
                 }
 

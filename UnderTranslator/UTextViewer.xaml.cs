@@ -100,7 +100,7 @@ namespace UnderTranslator
                 }
             else if (Mode == 2)
             {
-                maxC = (int)(fplain2.Width / (GMXFontDB.Shift * GMXFontDB.xCoeff));
+                maxC = (int)(PlainResizable.Width / (GMXFontDB.Shift * GMXFontDB.xCoeff));
             }
             if (v.Count > 0)
             {
@@ -195,6 +195,20 @@ namespace UnderTranslator
             {
                 setMode(0);
                 showText(Text);
+            }
+        }
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            try
+            {
+                plain_showWidth.Content = ((int)plain_slider.Value).ToString();
+                PlainResizable.Width = ((int)plain_slider.Value) * GMXFontDB.Shift * GMXFontDB.xCoeff;
+                showText(Text);
+            }
+            catch
+            {
+
             }
         }
 
