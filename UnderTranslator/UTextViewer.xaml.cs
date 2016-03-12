@@ -27,6 +27,7 @@ namespace UnderTranslator
             fplain2.inverted = true;
             fplain3.inverted = true;
             fplain4.inverted = true;
+            fplain5.inverted = true;
         }
 
         public string Text = "ADFAGFHDFHADFHDF";
@@ -87,6 +88,7 @@ namespace UnderTranslator
             fplain3.showStr("");
             fnorm3.showStr("");
             fplain4.showStr("");
+            fplain5.showStr("");
 
             List<string> v = new List<string>(text.Split('&'));
             int maxC = 0;
@@ -140,7 +142,16 @@ namespace UnderTranslator
             }
             if (v.Count > 3)
             {
+                if (v[3].Length > maxC)
+                {
+                    v.Insert(4, v[3].Substring(maxC));
+                    v[3] = v[3].Remove(maxC);
+                }
                 if (Mode == 2) fplain4.showStr(v[3]);
+            }
+            if (v.Count > 4)
+            {
+                if (Mode == 2) fplain5.showStr(v[4]);
             }
         }
 

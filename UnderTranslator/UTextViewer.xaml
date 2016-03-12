@@ -31,12 +31,13 @@
             <Image Height="100" Width="100" Source="ybf.png" Canvas.Left="26" Canvas.Top="37"/>
         </Canvas>
         <Canvas x:Name="PlaintText" Margin="0" Grid.Row="1" Background="Black">
-            <Grid x:Name="PlainResizable" Height="100" Width="229" Canvas.Left="26" Canvas.Top="18" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Grid x:Name="PlainResizable" Height="120" Width="229" Canvas.Left="26" Canvas.Top="18" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Rectangle Fill="White" Stroke="White" StrokeThickness="6" RadiusY="21.667" RadiusX="21.667" Margin="-10,0"/>
-                <s:GMXFontViewr x:Name="fplain1" Margin="0,10,0,74"/>
-                <s:GMXFontViewr x:Name="fplain2" Margin="0,31,0,53"/>
-                <s:GMXFontViewr x:Name="fplain3" Margin="0,52,0,32"/>
-                <s:GMXFontViewr x:Name="fplain4" Margin="0,73,0,11"/>
+                <s:GMXFontViewr x:Name="fplain1" Margin="0,10,0,1" Height="16" VerticalAlignment="Top"/>
+                <s:GMXFontViewr x:Name="fplain2" Margin="0,31,0,0" VerticalAlignment="Top" Height="16"/>
+                <s:GMXFontViewr x:Name="fplain3" Margin="0,52,0,0" VerticalAlignment="Top" Height="16"/>
+                <s:GMXFontViewr x:Name="fplain4" Margin="0,73,0,0" VerticalAlignment="Top" Height="16"/>
+                <s:GMXFontViewr x:Name="fplain5" Margin="0,94,0,0" VerticalAlignment="Top" Height="16"/>
             </Grid>
             <Slider x:Name="plain_slider" Canvas.Left="567" Canvas.Top="10" SmallChange="1" Maximum="20" Minimum="3" Value="7" Orientation="Vertical" ValueChanged="Slider_ValueChanged" Custom:SliderHelper.EnableMouseWheel="MouseHover" TickPlacement="Both" Height="150"/>
             <Label x:Name="plain_showWidth" Content="1234" Canvas.Left="593" Canvas.Top="10" Height="45" Width="117"/>
